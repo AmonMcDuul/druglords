@@ -2,11 +2,18 @@ import PySimpleGUI as sg
 import drugs_stats as ds
 
 BAR_MAX = 10
-i = 0
+progress = 0
 
 
-top_layout = [[sg.Button('Shop', key='-SHOP-'), sg.Button('Poopie',
-                                                          key='-NONE-'), sg.Button('Poops', key='-NONE-')]]
+def change_drug_price(price):
+    return price+10
+
+
+character_layout = [[sg.Image('poppetje.png'), sg.Text(
+    'Textje'), sg.Text('Textje'), sg.Text('Textje')]]
+
+submenu_layout = [[sg.Button('Shop', key='-SHOP-'), sg.Button('Poopie',
+                                                              key='-NONE-'), sg.Button('Poops', key='-NONE-')]]
 
 
 left_layout = [[sg.Text('Drugaloo')],
@@ -30,13 +37,17 @@ right_layout = [[sg.Text('Bugaloo')],
                 [sg.Button('Next day', key='-NEXTDAY-')]]
 
 
-combined_layout = [sg.vtop([sg.Col(top_layout, element_justification='l')]),
+combined_layout = [sg.vtop([sg.Col(character_layout, element_justification='l')]),
+                   sg.vtop([sg.Col(submenu_layout, element_justification='l')]),
                    [sg.Column(left_layout), sg.Column(right_layout)],
                    [sg.OK()]]
 
 
 window = sg.Window('Druglordzz', combined_layout)
 sg.cprint_set_output_destination(window, '-ML-')
+
+################
+# # BUY VIEW
 
 
 def buy_view(drug):
@@ -56,6 +67,8 @@ def buy_view(drug):
         if event == sg.WIN_CLOSED:
             break
     buy_window.close()
+
+###################
 
 
 while True:
