@@ -3,21 +3,18 @@ import drugs_stats as ds
 
 drugs = {'wiet': 50, 'hash': 100, 'subbranch': 200}
 BAR_MAX = 10
-i = 0
-
-# drug price changer
+progress = 0
 
 
 def change_drug_price(price):
     return price+10
 
 
-# Table data
-data = [['Weed', '50'], ['Hash', '100'], ['Boobs', '200']]
-headings = ['Drug', 'Price']
+character_layout = [[sg.Image('poppetje.png'), sg.Text(
+    'Textje'), sg.Text('Textje'), sg.Text('Textje')]]
 
-top_layout = [[sg.Button('Shop', key='-SHOP-'), sg.Button('Poopie',
-                                                          key='-NONE-'), sg.Button('Poops', key='-NONE-')]]
+submenu_layout = [[sg.Button('Shop', key='-SHOP-'), sg.Button('Poopie',
+                                                              key='-NONE-'), sg.Button('Poops', key='-NONE-')]]
 
 left_layout = [[sg.Table(values=ds.data, headings=ds.headings,
                          auto_size_columns=False,
@@ -38,7 +35,8 @@ right_layout = [[sg.Text('Bugaloo')],
                 [sg.Button('Next day', key='-NEXTDAY-')]]
 
 
-combined_layout = [sg.vtop([sg.Col(top_layout, element_justification='l')]),
+combined_layout = [sg.vtop([sg.Col(character_layout, element_justification='l')]),
+                   sg.vtop([sg.Col(submenu_layout, element_justification='l')]),
                    [sg.Column(left_layout), sg.Column(right_layout)],
                    [sg.OK()]]
 
@@ -46,9 +44,18 @@ combined_layout = [sg.vtop([sg.Col(top_layout, element_justification='l')]),
 window = sg.Window('Druglordzz', combined_layout)
 sg.cprint_set_output_destination(window, '-ML-')
 
+################
+# # BUY VIEW
+
 
 def buy_view(drug):
-    layout = [[sg.Text('Buy screen yoyo')]]
+    layout = [[sg.Text('Buy screen yoyo')],
+              [sg.Slider(range=(1, 100),
+                         default_value=0,
+                         size=(20, 15),
+                         orientation='horizontal',
+                         font=('Helvetica', 12))],
+              [sg.Button('Buy'), sg.Button('Sell')]]
     buy_window = sg.Window('Buy', layout)
 
     while True:
@@ -56,6 +63,8 @@ def buy_view(drug):
         if event == sg.WIN_CLOSED:
             break
     buy_window.close()
+
+###################
 
 
 while True:
@@ -65,8 +74,8 @@ while True:
     if values['-TABLE-']:
         sg.cprint(ds.data[int(values['-TABLE-'][0])][0])
     if event == '-NEXTDAY-':
-        i += 1
-        window['-PROG-'].update(i)
+        progress += 1
+        window['-PROG-'].update(progress)
     if event == '-BUY-' and len(values['-TABLE-']) == 1:
         buy_view(ds.data[int(values['-TABLE-'][0])][0])
 
