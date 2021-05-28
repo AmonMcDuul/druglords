@@ -1,6 +1,8 @@
 import PySimpleGUI as sg
 import drugs_stats as ds
 
+sg.theme('DarkGrey9')
+
 BAR_MAX = 10
 progress = 0
 
@@ -79,8 +81,8 @@ while True:
         sg.cprint(ds.data[int(values['-TABLE-'][0])][0])
     if event == '-NEXTDAY-':
         window['-TABLE-'].update(values=ds.price_random())
-        i += 1
-        window['-PROG-'].update(i)
+        progress += 1
+        window['-PROG-'].update(progress)
     if event == '-BUY-' and len(values['-TABLE-']) == 1:
         buy_view(ds.data[int(values['-TABLE-'][0])][0])
 
