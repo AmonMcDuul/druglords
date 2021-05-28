@@ -10,10 +10,10 @@ left_layout = [[sg.Text('Drugaloo')],
                          auto_size_columns=False,
                          col_widths=[20, 10],
                          justification='left',
-                         num_rows=6,
+                         num_rows=max(6, len(ds.data)),
                          key='-TABLE-',
                          row_height=20,
-                         hide_vertical_scroll=True,
+                         hide_vertical_scroll=bool(max(6, len(ds.data)) <= 6),
                          enable_events=True)]]
 
 right_layout = [[sg.Text('Bugaloo')],
