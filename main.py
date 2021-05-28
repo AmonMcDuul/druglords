@@ -1,5 +1,8 @@
 import PySimpleGUI as sg
 import drugs_stats as ds
+import trading as tr
+
+sg.theme('DarkGrey9')
 
 BAR_MAX = 10
 progress = 0
@@ -26,7 +29,7 @@ left_layout = [[sg.Text('Drugaloo')],
                          row_height=20,
                          hide_vertical_scroll=bool(max(6, len(ds.data)) <= 6),
                          enable_events=True)],
-               [sg.Button('Buy', key='-BUY-')]]
+               [sg.Button('Buy'), sg.Button('Sell')]]
 
 
 right_layout = [[sg.Text('Bugaloo')],
@@ -46,30 +49,6 @@ combined_layout = [sg.vtop([sg.Col(character_layout, element_justification='l')]
 window = sg.Window('Druglordzz', combined_layout)
 sg.cprint_set_output_destination(window, '-ML-')
 
-################
-# # BUY VIEW
-
-
-def buy_view(drug):
-    layout = [[sg.Text('Buy screen yoyo')],
-              [sg.Slider(range=(1, 100),
-                         default_value=0,
-                         size=(20, 15),
-                         orientation='horizontal',
-                         font=('Helvetica', 12))],
-              [sg.Button('Buy'), sg.Button('Sell')]]
-    buy_window = sg.Window('Buy', layout)
-
-    while True:
-        event, values = buy_window.read()
-        if event == sg.WIN_CLOSED:
-            break
-        if event == sg.WIN_CLOSED:
-            break
-    buy_window.close()
-
-###################
-
 
 while True:
     event, values = window.read()
@@ -79,9 +58,11 @@ while True:
         sg.cprint(ds.data[int(values['-TABLE-'][0])][0])
     if event == '-NEXTDAY-':
         window['-TABLE-'].update(values=ds.price_random())
-        i += 1
-        window['-PROG-'].update(i)
-    if event == '-BUY-' and len(values['-TABLE-']) == 1:
-        buy_view(ds.data[int(values['-TABLE-'][0])][0])
+        progress += 1
+        window['-PROG-'].update(progress)
+    if event == 'Buy' and len(values['-TABLE-']) == 1:
+        tr.buy_view(ds.data[int(values['-TABLE-'][0])][0])
+    if event == 'Sell' and len(values['-TABLE-']) == 1:
+        tr.sell_view(ds.data[int(values['-TABLE-'][0])][0], 5)
 
 window.close()
