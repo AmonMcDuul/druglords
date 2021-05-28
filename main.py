@@ -5,6 +5,10 @@ BAR_MAX = 10
 i = 0
 
 
+top_layout = [[sg.Button('Shop', key='-SHOP-'), sg.Button('Poopie',
+                                                          key='-NONE-'), sg.Button('Poops', key='-NONE-')]]
+
+
 left_layout = [[sg.Text('Drugaloo')],
                [sg.Table(values=ds.data, headings=ds.headings,
                          auto_size_columns=False,
@@ -23,19 +27,37 @@ right_layout = [[sg.Text('Bugaloo')],
                                 size=(20, 20), key='-PROG-')],
                 [sg.Button('Next day', key='-NEXTDAY-')]]
 
-combined_layout = [[sg.Column(left_layout), sg.Column(right_layout)],
+
+combined_layout = [sg.vtop([sg.Col(top_layout, element_justification='l')]),
+                   [sg.Column(left_layout), sg.Column(right_layout)],
                    [sg.OK()]]
+
 
 window = sg.Window('Druglordzz', combined_layout)
 sg.cprint_set_output_destination(window, '-ML-')
+
+
+def buy_view(drug):
+    layout = [[sg.Text('Buy screen yoyo')]]
+    buy_window = sg.Window('Buy', layout)
+
+    while True:
+        event, values = buy_window.read()
+        if event == sg.WIN_CLOSED:
+            break
+    buy_window.close()
+
 
 while True:
     event, values = window.read()
     if event == sg.WIN_CLOSED:
         break
     if values['-TABLE-']:
-        sg.cprint(ds.data[int(values['-TABLE-'][0])][1])
+        sg.cprint(ds.data[int(values['-TABLE-'][0])][0])
     if event == '-NEXTDAY-':
         i += 1
         window['-PROG-'].update(i)
+    if event == '-BUY-' and len(values['-TABLE-']) == 1:
+        buy_view(ds.data[int(values['-TABLE-'][0])][0])
+
 window.close()
