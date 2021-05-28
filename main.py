@@ -18,7 +18,9 @@ left_layout = [[sg.Text('Drugaloo')],
                          key='-TABLE-',
                          row_height=20,
                          hide_vertical_scroll=bool(max(6, len(ds.data)) <= 6),
-                         enable_events=True)]]
+                         enable_events=True)],
+               [sg.Button('Buy', key='-BUY-')]]
+
 
 right_layout = [[sg.Text('Bugaloo')],
                 [sg.MLine(key='-ML-', size=(40, 8))],
@@ -38,11 +40,19 @@ sg.cprint_set_output_destination(window, '-ML-')
 
 
 def buy_view(drug):
-    layout = [[sg.Text('Buy screen yoyo')]]
+    layout = [[sg.Text('Buy screen yoyo')],
+              [sg.Slider(range=(1, 100),
+                         default_value=0,
+                         size=(20, 15),
+                         orientation='horizontal',
+                         font=('Helvetica', 12))],
+              [sg.Button('Buy'), sg.Button('Sell')]]
     buy_window = sg.Window('Buy', layout)
 
     while True:
         event, values = buy_window.read()
+        if event == sg.WIN_CLOSED:
+            break
         if event == sg.WIN_CLOSED:
             break
     buy_window.close()
@@ -55,6 +65,7 @@ while True:
     if values['-TABLE-']:
         sg.cprint(ds.data[int(values['-TABLE-'][0])][0])
     if event == '-NEXTDAY-':
+        window['-TABLE-'].update(values=ds.price_random())
         i += 1
         window['-PROG-'].update(i)
     if event == '-BUY-' and len(values['-TABLE-']) == 1:
