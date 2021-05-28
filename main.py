@@ -12,8 +12,11 @@ def change_drug_price(price):
     return price+10
 
 
-character_layout = [[sg.Image('poppetje.png'), sg.Text(
-    'Textje'), sg.Text('Textje'), sg.Text('Textje')]]
+character_layout = [[sg.Image('poppetje.png')]]
+
+character_stats = [[sg.Text('Name: '), sg.Text('Piemeltje')],
+                   [sg.Text('Age: '), sg.Text('12')],
+                   [sg.Text('Inventory: '), sg.Text(ds.owned())]]
 
 submenu_layout = [[sg.Button('Shop', key='-SHOP-'), sg.Button('Poopie',
                                                               key='-NONE-'), sg.Button('Poops', key='-NONE-')]]
@@ -40,9 +43,9 @@ right_layout = [[sg.Text('Bugaloo')],
                 [sg.Button('Next day', key='-NEXTDAY-')]]
 
 
-combined_layout = [sg.vtop([sg.Col(character_layout, element_justification='l')]),
+combined_layout = [[sg.Col(character_layout), sg.Col(character_stats)],
                    sg.vtop([sg.Col(submenu_layout, element_justification='l')]),
-                   [sg.Column(left_layout), sg.Column(right_layout)],
+                   [sg.Col(left_layout), sg.Col(right_layout)],
                    [sg.OK()]]
 
 
