@@ -1,7 +1,6 @@
 import PySimpleGUI as sg
 import drugs_stats as ds
 
-drugs = {'wiet': 50, 'hash': 100, 'subbranch': 200}
 BAR_MAX = 10
 progress = 0
 
@@ -16,16 +15,19 @@ character_layout = [[sg.Image('poppetje.png'), sg.Text(
 submenu_layout = [[sg.Button('Shop', key='-SHOP-'), sg.Button('Poopie',
                                                               key='-NONE-'), sg.Button('Poops', key='-NONE-')]]
 
-left_layout = [[sg.Table(values=ds.data, headings=ds.headings,
+
+left_layout = [[sg.Text('Drugaloo')],
+               [sg.Table(values=ds.data, headings=ds.headings,
                          auto_size_columns=False,
                          col_widths=[20, 10],
                          justification='left',
-                         num_rows=6,
+                         num_rows=max(6, len(ds.data)),
                          key='-TABLE-',
                          row_height=20,
-                         hide_vertical_scroll=True,
+                         hide_vertical_scroll=bool(max(6, len(ds.data)) <= 6),
                          enable_events=True)],
                [sg.Button('Buy', key='-BUY-')]]
+
 
 right_layout = [[sg.Text('Bugaloo')],
                 [sg.MLine(key='-ML-', size=(40, 8))],
@@ -62,6 +64,8 @@ def buy_view(drug):
         event, values = buy_window.read()
         if event == sg.WIN_CLOSED:
             break
+        if event == sg.WIN_CLOSED:
+            break
     buy_window.close()
 
 ###################
@@ -74,8 +78,9 @@ while True:
     if values['-TABLE-']:
         sg.cprint(ds.data[int(values['-TABLE-'][0])][0])
     if event == '-NEXTDAY-':
-        progress += 1
-        window['-PROG-'].update(progress)
+        window['-TABLE-'].update(values=ds.price_random())
+        i += 1
+        window['-PROG-'].update(i)
     if event == '-BUY-' and len(values['-TABLE-']) == 1:
         buy_view(ds.data[int(values['-TABLE-'][0])][0])
 
