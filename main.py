@@ -4,6 +4,8 @@ import trading as tr
 
 sg.theme('DarkGrey9')
 
+sg.theme('DarkGrey9')
+
 BAR_MAX = 10
 progress = 0
 
