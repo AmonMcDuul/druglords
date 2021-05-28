@@ -68,6 +68,6 @@ while True:
         i += 1
         window['-PROG-'].update(i)
     if event == '-BUY-' and len(values['-TABLE-']) == 1:
-        buy_view()
+        buy_view(ds.data[int(values['-TABLE-'][0])][0])
 
 window.close()
