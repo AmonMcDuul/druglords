@@ -1,6 +1,6 @@
 import PySimpleGUI as sg
 
-choices = ('Wiet', 'Hash', 'Piemel Test')
+choices = ('Wiet', 'Hash', 'subbranch')
 
 left_layout = [[sg.Text('Drugaloo')],
                [sg.Listbox(choices, size=(15, len(choices)), key='-DRUG-', enable_events=True)]]
