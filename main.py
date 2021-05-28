@@ -65,7 +65,10 @@ while True:
         window['-PROG-'].update(progress)
     if event == 'Buy' and len(values['-TABLE-']) == 1:
         tr.buy_view(ds.data[int(values['-TABLE-'][0])][0])
+        window['-TABLE-'].update(values=ds.get_data(ds.drugs))
     if event == 'Sell' and len(values['-TABLE-']) == 1:
-        tr.sell_view(ds.data[int(values['-TABLE-'][0])][0], 5)
+        tr.sell_view(ds.data[int(values['-TABLE-'][0])][0],
+                     ds.drugs[ds.data[int(values['-TABLE-'][0])][0]]['Owned'])
+        window['-TABLE-'].update(values=ds.get_data(ds.drugs))
 
 window.close()

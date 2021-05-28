@@ -1,4 +1,5 @@
 import PySimpleGUI as sg
+import drugs_stats as ds
 
 
 def buy_view(drug):
@@ -18,6 +19,7 @@ def buy_view(drug):
             break
         if event == 'Buy':
             sg.cprint(drug, int(values['-NUM-']))
+            ds.owned_update('buy', drug, int(values['-NUM-']))
     buy_window.close()
 
 
@@ -35,7 +37,9 @@ def sell_view(drug, maxi):
     while True:
         event, values = sell_window.read()
         if event == sg.WIN_CLOSED:
+
             break
         if event == 'Sell':
             sg.cprint(drug, int(values['-NUM-']))
+            ds.owned_update('sell', drug, int(values['-NUM-']))
     sell_window.close()

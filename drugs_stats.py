@@ -24,6 +24,14 @@ def owned():
 
 
 # drug stats
+def owned_update(string, drug, amount):
+    if string == 'buy':
+        drugs[drug]['Owned'] += amount
+    elif string == 'sell':
+        drugs[drug]['Owned'] -= amount
+    return get_data(drugs)
+
+    # drug stats
 drugs = {'Weed': {'Price': 50, 'Owned': 0}, 'Hash': {
     'Price': 150, 'Owned': 0}, 'Heroin': {'Price': 250, 'Owned': 0}}
 headings = ['Drug', 'Price', 'Owned']
