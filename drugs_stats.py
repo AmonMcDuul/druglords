@@ -1,7 +1,7 @@
 import random
 
 
-def get_data(dict):
+def get_data(dicts):
     data = []
     drug_data = list(map(list, drugs.items()))
     for drug in drug_data:
@@ -18,9 +18,9 @@ def price_random():
 
 def owned():
     result = 0
-    for i in data:
+    for i in get_data(drugs):
         result += i[2]
-    return(result)
+    return(str(result) + ' / 100')
 
 
 # drug stats
