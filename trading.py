@@ -19,7 +19,7 @@ def buy_view(drug):
         if event == sg.WIN_CLOSED:
             break
         if event == 'Buy':
-            sg.cprint(drug, int(values['-NUM-']))
+            # sg.cprint(drug, int(values['-NUM-']))
             ds.owned_update('buy', drug, int(values['-NUM-']))
             ba.update_balance('buy', drug, int(values['-NUM-']))
             break
@@ -42,7 +42,7 @@ def sell_view(drug, maxi):
         if event == sg.WIN_CLOSED:
             break
         if event == 'Sell':
-            sg.cprint(drug, int(values['-NUM-']))
+            # sg.cprint(drug, int(values['-NUM-']))
             ds.owned_update('sell', drug, int(values['-NUM-']))
             ba.update_balance('sell', drug, int(values['-NUM-']))
             break
