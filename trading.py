@@ -1,5 +1,6 @@
 import PySimpleGUI as sg
 import drugs_stats as ds
+import bank_account as ba
 
 
 def buy_view(drug):
@@ -20,6 +21,7 @@ def buy_view(drug):
         if event == 'Buy':
             sg.cprint(drug, int(values['-NUM-']))
             ds.owned_update('buy', drug, int(values['-NUM-']))
+            ba.update_balance('buy', drug, int(values['-NUM-']))
             break
     buy_window.close()
 
@@ -42,5 +44,6 @@ def sell_view(drug, maxi):
         if event == 'Sell':
             sg.cprint(drug, int(values['-NUM-']))
             ds.owned_update('sell', drug, int(values['-NUM-']))
+            ba.update_balance('sell', drug, int(values['-NUM-']))
             break
     sell_window.close()

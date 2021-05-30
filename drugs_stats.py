@@ -1,7 +1,7 @@
 import random
 
 
-def get_data(dicts):
+def get_data():
     data = []
     drug_data = list(map(list, drugs.items()))
     for drug in drug_data:
@@ -11,16 +11,16 @@ def get_data(dicts):
 
 def price_random():
     for drug in drugs:
-        percentage = random.randint(-10, 10) / 100
-        drugs[drug]['Price'] = int(drugs[drug]['Price'] * (1 + percentage))
-    return get_data(drugs)
+        percentage = 1 + (random.randint(-10, 10) / 100)
+        drugs[drug]['Price'] = int(drugs[drug]['Price'] * percentage)
+    return get_data()
 
 
 def owned():
     result = 0
-    for i in get_data(drugs):
+    for i in get_data():
         result += i[2]
-    return(str(result) + ' / 100')
+    return result
 
 
 # drug stats
@@ -29,10 +29,11 @@ def owned_update(string, drug, amount):
         drugs[drug]['Owned'] += amount
     elif string == 'sell':
         drugs[drug]['Owned'] -= amount
-    return get_data(drugs)
+    return get_data()
+
 
     # drug stats
 drugs = {'Weed': {'Price': 50, 'Owned': 0}, 'Hash': {
     'Price': 150, 'Owned': 0}, 'Heroin': {'Price': 250, 'Owned': 0}}
 headings = ['Drug', 'Price', 'Owned']
-data = get_data(drugs)
+data = get_data()
