@@ -21,7 +21,7 @@ def main_screen():
                        [sg.Text('Age: ', size=(7, 1)), sg.Text('12')],
                        [sg.Text('Inventory: ', size=(7, 1)), sg.Text(
                            ds.owned(), size=(10, 1), key='-INV-')],
-                       [sg.Text('BankAccount!: ', size=(10, 1)), sg.Text(balance, text_color='Green', key='-BALANCE-')]]
+                       [sg.Text('BankAccount!: ', size=(10, 1)), sg.Text(balance, text_color=ba.balance_colour(), key='-BALANCE-')]]
 
     character_items = [[sg.Text('Weapon: ', size=(7, 1)), sg.Text('Vuisten')],
                        [sg.Text('Armor: ', size=(7, 1)),
@@ -79,13 +79,15 @@ def main():
             tr.buy_view(ds.data[int(values['-TABLE-'][0])][0])
             window['-TABLE-'].update(values=ds.get_data())
             window['-INV-'].update(ds.owned())
-            window['-BALANCE-'].update(ba.get_balance())
+            window['-BALANCE-'].update(ba.get_balance(),
+                                       text_color=ba.balance_colour())
         if event == 'Sell' and len(values['-TABLE-']) == 1:
             tr.sell_view(ds.data[int(values['-TABLE-'][0])][0],
                          ds.drugs[ds.data[int(values['-TABLE-'][0])][0]]['Owned'])
             window['-TABLE-'].update(values=ds.get_data())
             window['-INV-'].update(ds.owned())
-            window['-BALANCE-'].update(ba.get_balance())
+            window['-BALANCE-'].update(ba.get_balance(),
+                                       text_color=ba.balance_colour())
         if event == 'Poops':
             sg.cprint('Fartypoops')
 

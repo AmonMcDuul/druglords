@@ -16,3 +16,11 @@ def update_balance(string, drug, amount):
 
 def get_balance():
     return balance
+
+
+def balance_colour():
+    if balance >= 0:
+        color = 'green'
+    else:
+        color = 'red'
+    return color
