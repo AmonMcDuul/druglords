@@ -102,6 +102,8 @@ def main():
             sh.shop_view()
             window['-WEAP-'].update(ch.get_weapon())
             window['-ARM-'].update(ch.get_armor())
+            window['-BALANCE-'].update(ba.get_balance(),
+                                       text_color=ba.balance_colour())
         if event == 'Poops':
             sg.cprint('Fartypoops')
 
