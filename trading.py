@@ -37,7 +37,7 @@ def buy_view(drug):
 def sell_view(drug, maxi):
     layout = [[sg.Text('Sell screen yoyo')],
               [sg.Slider(key='-NUM-',
-                         range=(1, maxi),
+                         range=(0, maxi),
                          default_value=0,
                          size=(20, 15),
                          orientation='horizontal',
