@@ -74,6 +74,9 @@ def main():
         if event == '-NEXTDAY-':
             window['-TABLE-'].update(values=ds.price_random())
             progress += 1
+            if progress > 10:
+                progress = 0
+                sg.popup('Game endend. You have earned: ', ba.get_balance())
             window['-PROG-'].update(progress)
         if event == 'Buy' and len(values['-TABLE-']) == 1:
             tr.buy_view(ds.data[int(values['-TABLE-'][0])][0])

@@ -3,10 +3,18 @@ import drugs_stats as ds
 import bank_account as ba
 
 
+def max_to_buy(drug):
+    r = ds.get_data()
+    for i in r:
+        if i[0] == drug:
+            return (int(ba.get_balance()/i[1]))
+
+
 def buy_view(drug):
+    maxi = max_to_buy(drug)
     layout = [[sg.Text('Buy screen yoyo')],
               [sg.Slider(key='-NUM-',
-                         range=(1, 100),
+                         range=(0, maxi),
                          default_value=0,
                          size=(20, 15),
                          orientation='horizontal',
