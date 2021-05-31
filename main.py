@@ -17,8 +17,8 @@ def main_screen(name, age, pic):
     character_layout = [[sg.Image(pic, key='-PROFILE_PIC-')]]
 
     character_stats = [[sg.Text('Name: ', size=(7, 1)), sg.Text(name, key='-NAME-')],
-                       [sg.Text(age, size=(7, 1)),
-                        sg.Text('12', key='-AGE-')],
+                       [sg.Text('Age: ', size=(7, 1)),
+                        sg.Text(age, key='-AGE-')],
                        [sg.Text('Inventory: ', size=(7, 1)), sg.Text(
                            ds.owned(), size=(10, 1), key='-INV-')],
                        [sg.Text('BankAccount!: ', size=(10, 1)), sg.Text(balance, text_color=ba.balance_colour(), key='-BALANCE-')]]
