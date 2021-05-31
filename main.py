@@ -2,6 +2,8 @@ import PySimpleGUI as sg
 import drugs_stats as ds
 import trading as tr
 import bank_account as ba
+import shop as sh
+import character as ch
 
 sg.theme('DarkGrey9')
 
@@ -19,9 +21,9 @@ def main_screen():
                            ds.owned(), size=(10, 1), key='-INV-')],
                        [sg.Text('BankAccount!: ', size=(10, 1)), sg.Text(balance, text_color=ba.balance_colour(), key='-BALANCE-')]]
 
-    character_items = [[sg.Text('Weapon: ', size=(7, 1)), sg.Text('Vuisten')],
+    character_items = [[sg.Text('Weapon: ', size=(7, 1)), sg.Text(ch.get_weapon(), key='-WEAP-')],
                        [sg.Text('Armor: ', size=(7, 1)),
-                        sg.Text('Bodywarmer')],
+                        sg.Text(ch.get_armor(), size=(15, 1), key='-ARM-')],
                        [sg.Text('Dinges: ', size=(7, 1)), sg.Text('Danges')],
                        [sg.Text('')]]
 
@@ -95,6 +97,10 @@ def main():
 
             sg.cprint(
                 'You sold ' + str(ds.data[int(values['-TABLE-'][0])][0]))
+        if event == 'Shop':
+            sh.shop_view()
+            window['-WEAP-'].update(ch.get_weapon())
+            window['-ARM-'].update(ch.get_armor())
         if event == 'Poops':
             sg.cprint('Fartypoops')
 
