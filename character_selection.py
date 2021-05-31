@@ -37,6 +37,7 @@ def char_selection():
         if event == sg.WIN_CLOSED:
             break
         if event == '-GO-':
+            character_window.close()
             main.main(values['-NAME-'], values['-AGE-'], picture_picker(3))
         if event == '>':
             character_window['-IMG-'].update(picture_picker(2))
