@@ -13,7 +13,7 @@ balance = 10000
 
 
 def main_screen():
-    character_layout = [[sg.Image('poppetje.png')]]
+    character_layout = [[sg.Image('img\\poppetje.png')]]
 
     character_stats = [[sg.Text('Name: ', size=(7, 1)), sg.Text('Piemeltje')],
                        [sg.Text('Age: ', size=(7, 1)), sg.Text('12')],
@@ -67,7 +67,8 @@ def main():
         event, values = window.read()
         if event == sg.WIN_CLOSED:
             break
-        if values['-TABLE-']:
+        # eand event !=  ---- is gedaan zodat tekst alleen geprint wordt als drugs geselecteerd wordt.
+        if values['-TABLE-'] and event != 'Buy' and event != 'Sell':
             sg.cprint(
                 'Trade ' + str(ds.data[int(values['-TABLE-'][0])][0]) +
                 ' for $' + str(ds.data[int(values['-TABLE-'][0])][1]) + '?')
@@ -76,7 +77,7 @@ def main():
             progress += 1
             if progress > 10:
                 progress = 0
-                sg.popup('Game endend. You have earned: ', ba.get_balance())
+                sg.popup('Game ends. You have earned: ', ba.get_balance())
             window['-PROG-'].update(progress)
         if event == 'Buy' and len(values['-TABLE-']) == 1:
             tr.buy_view(ds.data[int(values['-TABLE-'][0])][0])
