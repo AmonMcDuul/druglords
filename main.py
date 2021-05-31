@@ -7,11 +7,7 @@ sg.theme('DarkGrey9')
 
 BAR_MAX = 10
 progress = 0
-balance = 1000
-
-
-def change_drug_price(price):
-    return price+10
+balance = 10000
 
 
 def main_screen():
@@ -70,7 +66,9 @@ def main():
         if event == sg.WIN_CLOSED:
             break
         if values['-TABLE-']:
-            sg.cprint(ds.data[int(values['-TABLE-'][0])][0])
+            sg.cprint(
+                'Trade ' + str(ds.data[int(values['-TABLE-'][0])][0]) +
+                ' for $' + str(ds.data[int(values['-TABLE-'][0])][1]) + '?')
         if event == '-NEXTDAY-':
             window['-TABLE-'].update(values=ds.price_random())
             progress += 1
@@ -84,6 +82,9 @@ def main():
             window['-INV-'].update(ds.owned())
             window['-BALANCE-'].update(ba.get_balance(),
                                        text_color=ba.balance_colour())
+
+            sg.cprint(
+                'You bought ' + str(ds.data[int(values['-TABLE-'][0])][0]))
         if event == 'Sell' and len(values['-TABLE-']) == 1:
             tr.sell_view(ds.data[int(values['-TABLE-'][0])][0],
                          ds.drugs[ds.data[int(values['-TABLE-'][0])][0]]['Owned'])
@@ -91,6 +92,9 @@ def main():
             window['-INV-'].update(ds.owned())
             window['-BALANCE-'].update(ba.get_balance(),
                                        text_color=ba.balance_colour())
+
+            sg.cprint(
+                'You sold ' + str(ds.data[int(values['-TABLE-'][0])][0]))
         if event == 'Poops':
             sg.cprint('Fartypoops')
 
