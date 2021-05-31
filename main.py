@@ -5,6 +5,7 @@ import bank_account as ba
 import shop as sh
 import character as ch
 import character_selection as cs
+import loans as lo
 
 sg.theme('DarkGrey9')
 
@@ -30,7 +31,7 @@ def main_screen(name, age, pic):
                        [sg.Text('')]]
 
     submenu_layout = [
-        [sg.Button('Shop'), sg.Button('Poopie'), sg.Button('Poops')]]
+        [sg.Button('Shop'), sg.Button('Loans'), sg.Button('Poops')]]
 
     left_layout = [[sg.Text('Drugaloo')],
                    [sg.Table(values=ds.data, headings=ds.headings,
@@ -106,6 +107,8 @@ def main(name, age, pic):
             window['-ARM-'].update(ch.get_armor())
             window['-BALANCE-'].update(ba.get_balance(),
                                        text_color=ba.balance_colour())
+        if event == 'Loans':
+            lo.loan_selection()
         if event == 'Poops':
             sg.cprint('Fartypoops')
 
