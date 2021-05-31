@@ -4,6 +4,7 @@ import trading as tr
 import bank_account as ba
 import shop as sh
 import character as ch
+import character_selection as cs
 
 sg.theme('DarkGrey9')
 
@@ -12,11 +13,12 @@ progress = 0
 balance = 10000
 
 
-def main_screen():
-    character_layout = [[sg.Image('img\\poppetje.png')]]
+def main_screen(name, age, pic):
+    character_layout = [[sg.Image(pic, key='-PROFILE_PIC-')]]
 
-    character_stats = [[sg.Text('Name: ', size=(7, 1)), sg.Text('Piemeltje')],
-                       [sg.Text('Age: ', size=(7, 1)), sg.Text('12')],
+    character_stats = [[sg.Text('Name: ', size=(7, 1)), sg.Text(name, key='-NAME-')],
+                       [sg.Text(age, size=(7, 1)),
+                        sg.Text('12', key='-AGE-')],
                        [sg.Text('Inventory: ', size=(7, 1)), sg.Text(
                            ds.owned(), size=(10, 1), key='-INV-')],
                        [sg.Text('BankAccount!: ', size=(10, 1)), sg.Text(balance, text_color=ba.balance_colour(), key='-BALANCE-')]]
@@ -60,9 +62,9 @@ def main_screen():
     return window
 
 
-def main():
+def main(name, age, pic):
     global progress
-    window = main_screen()
+    window = main_screen(name, age, pic)
     while True:
         event, values = window.read()
         if event == sg.WIN_CLOSED:
@@ -111,4 +113,5 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    # main()
+    cs.char_selection()
