@@ -11,8 +11,8 @@ def get_data():
 
 def price_random():
     for drug in drugs:
-        percentage = 1 + (random.randint(-10, 10) / 100)
-        drugs[drug]['Price'] = int(drugs[drug]['Price'] * percentage)
+        percentage = 1 + (random.randint(-25, 25) / 100)
+        drugs[drug]['Price'] = int(origdrugs[drug]['Price'] * percentage)
     return get_data()
 
 
@@ -34,6 +34,8 @@ def owned_update(string, drug, amount):
 
     # drug stats
 drugs = {'Weed': {'Price': 50, 'Owned': 0}, 'Hash': {
+    'Price': 150, 'Owned': 0}, 'Heroin': {'Price': 250, 'Owned': 0}}
+origdrugs = {'Weed': {'Price': 50, 'Owned': 0}, 'Hash': {
     'Price': 150, 'Owned': 0}, 'Heroin': {'Price': 250, 'Owned': 0}}
 headings = ['Drug', 'Price', 'Owned']
 data = get_data()
