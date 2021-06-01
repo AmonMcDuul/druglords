@@ -7,7 +7,7 @@ def rand_tone():
     skintone = [random.randint(0, 255), random.randint(
         0, 255), random.randint(0, 255)]
 
-    image = cv.imread("img//avatar_orig.png")
+    image = cv.imread("img\\avatar_orig.png")
     hsv = cv.cvtColor(image, cv.COLOR_BGR2HSV)
 
     # Define lower and uppper limits of color
@@ -20,6 +20,6 @@ def rand_tone():
     # Change image to skintone where we found color
     image[mask > 0] = skintone
 
-    cv.imwrite("img//avatar.png", image)
+    cv.imwrite("img\\avatar.png", image)
 
-    return 'img//avatar.png'
+    return 'img\\avatar.png'
