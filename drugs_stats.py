@@ -16,7 +16,7 @@ def price_random():
             percentage = 1 + (random.randint(50, 100) / 100)
             sg.cprint(drug + ' price is very high!')
         elif price_very_low():
-            percentage = 1 - (random.randint(25, 75) / 100)
+            percentage = 1 - (random.randint(30, 85) / 100)
             sg.cprint(drug + ' price is very low!')
         else:
             percentage = 1 + (random.randint(-25, 25) / 100)

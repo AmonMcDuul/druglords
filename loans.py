@@ -30,4 +30,11 @@ def loan_selection():
             ba.set_loan(values['-NUM-'])
             ba.set_interest_loan(values['-NUM-'])
             break
+        if event == 'Pay back':
+            if ba.pay_loan():
+                sg.cprint('Loan is payed off')
+            else:
+                sg.cprint(
+                    'You aint got no money to pay of your debts bro bri brabra')
+            break
     loan_window.close()
