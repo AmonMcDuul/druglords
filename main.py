@@ -12,9 +12,11 @@ sg.theme('DarkGrey9')
 BAR_MAX = 10
 progress = 0
 balance = 10000
+loan = 0
 
 
 def main_screen(name, age, pic):
+
     character_layout = [[sg.Image(pic, key='-PROFILE_PIC-')]]
 
     character_stats = [[sg.Text('Name: ', size=(7, 1)), sg.Text(name, key='-NAME-')],
@@ -28,7 +30,7 @@ def main_screen(name, age, pic):
                        [sg.Text('Armor: ', size=(7, 1)),
                         sg.Text(ch.get_armor(), size=(15, 1), key='-ARM-')],
                        [sg.Text('Dinges: ', size=(7, 1)), sg.Text('Danges')],
-                       [sg.Text('')]]
+                       [sg.Text('Loan: ', size=(10, 1)), sg.Text(loan, size=(10, 1), text_color='Red', key='-LOAN-')]]
 
     submenu_layout = [
         [sg.Button('Shop'), sg.Button('Loans'), sg.Button('Poops')]]
@@ -53,10 +55,11 @@ def main_screen(name, age, pic):
                                     size=(20, 20), key='-PROG-')],
                     [sg.Button('Next day', key='-NEXTDAY-')]]
 
-    combined_layout = [[sg.Col(character_layout), sg.Col(character_stats), sg.Col(character_items)],
-                       sg.vtop(
-                           [sg.Col(submenu_layout, element_justification='l')]),
-                       [sg.Col(left_layout), sg.Col(right_layout)]]
+    combined_layout = [[sg.Col(character_layout), sg.Col(
+        character_stats), sg.Col(character_items)],
+        sg.vtop(
+        [sg.Col(submenu_layout, element_justification='l')]),
+        [sg.Col(left_layout), sg.Col(right_layout)]]
 
     window = sg.Window('Druglordzz', combined_layout)
     sg.cprint_set_output_destination(window, '-ML-')
@@ -77,6 +80,10 @@ def main(name, age, pic):
                 ' for $' + str(ds.data[int(values['-TABLE-'][0])][1]) + '?')
         if event == '-NEXTDAY-':
             window['-TABLE-'].update(values=ds.price_random())
+            ba.loan_interest()
+            window['-LOAN-'].update(ba.get_interest_loan())
+            window['-BALANCE-'].update(ba.get_balance(),
+                                       text_color=ba.balance_colour())
             progress += 1
             if progress > 10:
                 progress = 0
@@ -109,6 +116,9 @@ def main(name, age, pic):
                                        text_color=ba.balance_colour())
         if event == 'Loans':
             lo.loan_selection()
+            window['-LOAN-'].update(ba.get_interest_loan())
+            window['-BALANCE-'].update(ba.get_balance(),
+                                       text_color=ba.balance_colour())
         if event == 'Poops':
             sg.cprint('Fartypoops')
 

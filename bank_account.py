@@ -1,5 +1,5 @@
 import drugs_stats as ds
-from main import balance
+from main import balance, loan
 
 
 def update_balance(string, drug, amount):
@@ -21,7 +21,10 @@ def update_balance_shop(amount):
 
 
 def get_balance():
-    return balance
+    global balance
+    global loan
+    result = balance + loan
+    return result
 
 
 def balance_colour():
@@ -38,3 +41,33 @@ def shop_price_colour(amount):
     else:
         color = 'red'
     return color
+
+
+def set_loan(new_loan):
+    global loan
+    loan = new_loan
+    return
+
+
+def get_loan():
+    global loan
+    return loan
+
+
+def set_interest_loan(int_loan):
+    global interest_loan
+    interest_loan = int_loan
+    return
+
+
+def get_interest_loan():
+    global interest_loan
+    return interest_loan
+
+
+def loan_interest():
+    global interest_loan
+    new_loan = interest_loan + (interest_loan*0.015)
+    result = "{:.2f}".format(new_loan)
+    interest_loan = float(result)
+    return

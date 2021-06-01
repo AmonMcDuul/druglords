@@ -2,6 +2,7 @@ import PySimpleGUI as sg
 import main
 
 count = 1
+playtime = ['30', '60', '90']
 
 
 def picture_picker(n):
@@ -24,6 +25,7 @@ def character_view():
                         [sg.Text('Age: '), sg.Input(key='-AGE-')],
                         [sg.Button('<'), sg.Image(
                             picture_picker(3), key='-IMG-'), sg.Button('>')],
+                        [sg.Text('choose playtime: '), sg.Combo(playtime)],
                         [sg.Button('Go deal some drugs yo', key='-GO-')]
                         ]
     character_window = sg.Window('Shoppa', character_layout)
