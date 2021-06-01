@@ -1,22 +1,23 @@
 import PySimpleGUI as sg
 import main
+import skincolor as sc
 
 count = 1
 playtime = ['30', '60', '90']
+avatar = 'img//avatar_orig.png'
 
-
-def picture_picker(n):
-    global count
-    if n == 2:
-        count += 1
-        if count == 6:
-            count = 1
-    if n == 1:
-        count -= 1
-        if count == 0:
-            count = 5
-    picture = ('img//' + str(count)+'poppetje.png')
-    return picture
+# def picture_picker(n):
+#     global count
+#     if n == 2:
+#         count += 1
+#         if count == 6:
+#             count = 1
+#     if n == 1:
+#         count -= 1
+#         if count == 0:
+#             count = 5
+#     picture = ('img//' + str(count)+'poppetje.png')
+#     return picture
 
 
 def character_view():
@@ -24,7 +25,7 @@ def character_view():
                         [sg.Text('Name: '), sg.Input(key='-NAME-')],
                         [sg.Text('Age: '), sg.Input(key='-AGE-')],
                         [sg.Button('<'), sg.Image(
-                            picture_picker(3), key='-IMG-'), sg.Button('>')],
+                            avatar, key='-IMG-'), sg.Button('>')],
                         [sg.Text('choose playtime: '), sg.Combo(playtime)],
                         [sg.Button('Go deal some drugs yo', key='-GO-')]
                         ]
@@ -40,9 +41,9 @@ def char_selection():
             break
         if event == '-GO-':
             character_window.close()
-            main.main(values['-NAME-'], values['-AGE-'], picture_picker(3))
+            main.main(values['-NAME-'], values['-AGE-'], sc.rand_tone())
         if event == '>':
-            character_window['-IMG-'].update(picture_picker(2))
+            character_window['-IMG-'].update(sc.rand_tone())
         if event == '<':
-            character_window['-IMG-'].update(picture_picker(1))
+            character_window['-IMG-'].update(sc.rand_tone())
     character_window.close()
