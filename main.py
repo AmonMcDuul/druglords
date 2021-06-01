@@ -13,6 +13,7 @@ BAR_MAX = 10
 progress = 0
 balance = 10000
 loan = 0
+interest_loan = 0
 
 
 def main_screen(name, age, pic):
@@ -30,7 +31,7 @@ def main_screen(name, age, pic):
                        [sg.Text('Armor: ', size=(7, 1)),
                         sg.Text(ch.get_armor(), size=(15, 1), key='-ARM-')],
                        [sg.Text('Dinges: ', size=(7, 1)), sg.Text('Danges')],
-                       [sg.Text('Loan: ', size=(10, 1)), sg.Text(loan, size=(10, 1), text_color='Red', key='-LOAN-')]]
+                       [sg.Text('Loan: ', size=(7, 1)), sg.Text(loan, size=(10, 1), text_color='Red', key='-LOAN-')]]
 
     submenu_layout = [
         [sg.Button('Shop'), sg.Button('Loans'), sg.Button('Poops')]]

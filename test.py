@@ -1,8 +1,4 @@
-def max_to_buy():
-    account = 1000
-    for i in range(1, account):
+import random
 
-        print(i)
-
-
-max_to_buy()
+x = random.randint(1, 20)
+print(x)
