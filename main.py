@@ -47,20 +47,42 @@ def main_screen(name, age, pic):
                              hide_vertical_scroll=bool(
                                  max(6, len(ds.data)) <= 6),
                              enable_events=True)],
-                   [sg.Button('Buy'), sg.Button('Sell')]]
+                   [sg.Button('Buy'), sg.Button('Sell')],
+                   [sg.Text('')]]
 
-    right_layout = [[sg.Text('Bugaloo')],
-                    [sg.MLine(key='-ML-', size=(40, 8))],
+    right_layout = [[sg.Text('Inventory')],
+                    [sg.Table(values=ds.data, headings=ds.headings,
+                              auto_size_columns=False,
+                              col_widths=[20, 10, 6],
+                              justification='left',
+                              num_rows=max(6, len(ds.data)),
+                              key='-TABLEINV-',
+                              row_height=20,
+                              hide_vertical_scroll=bool(
+                                  max(6, len(ds.data)) <= 6),
+                              enable_events=True)],
                     [sg.Text('Progress')],
                     [sg.ProgressBar(BAR_MAX, orientation='h',
-                                    size=(20, 20), key='-PROG-')],
-                    [sg.Button('Next day', key='-NEXTDAY-')]]
+                                    size=(20, 20), key='-PROG-')]]
+
+    travel_layout = [[sg.Button('Place1', key='-NEXTDAY-'),
+                      sg.Button('Place2', key='-NEXTDAY-')],
+                     [sg.Button('Place3', key='-NEXTDAY-'),
+                      sg.Button('Place4', key='-NEXTDAY-')],
+                     [sg.Button('Place5', key='-NEXTDAY-'),
+                      sg.Button('Place6', key='-NEXTDAY-')]
+                     ]
+
+    info_layout = [[sg.MLine(key='-ML-', size=(70, 8))]]
 
     combined_layout = [[sg.Col(character_layout), sg.Col(
         character_stats), sg.Col(character_items)],
         sg.vtop(
         [sg.Col(submenu_layout, element_justification='l')]),
-        [sg.Col(left_layout), sg.Col(right_layout)]]
+        sg.vtop(
+        [sg.Col(info_layout), sg.Col(travel_layout)]),
+        sg.vtop(
+        [sg.Col(left_layout), sg.Col(right_layout)])]
 
     window = sg.Window('Druglordzz', combined_layout)
     sg.cprint_set_output_destination(window, '-ML-')

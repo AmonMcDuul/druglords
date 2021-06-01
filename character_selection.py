@@ -41,7 +41,7 @@ def char_selection():
             break
         if event == '-GO-':
             character_window.close()
-            main.main(values['-NAME-'], values['-AGE-'], sc.rand_tone())
+            main.main(values['-NAME-'], values['-AGE-'], 'img\\avatar.png')
         if event == '>':
             character_window['-IMG-'].update(sc.rand_tone())
         if event == '<':
