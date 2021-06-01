@@ -1,5 +1,5 @@
 import drugs_stats as ds
-from main import balance, loan
+from main import balance, loan, interest_loan
 
 
 def update_balance(string, drug, amount):
