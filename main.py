@@ -65,12 +65,12 @@ def main_screen(name, age, pic):
                     [sg.ProgressBar(BAR_MAX, orientation='h',
                                     size=(20, 20), key='-PROG-')]]
 
-    travel_layout = [[sg.Button('Place1', key='-NEXTDAY-'),
-                      sg.Button('Place2', key='-NEXTDAY-')],
-                     [sg.Button('Place3', key='-NEXTDAY-'),
-                      sg.Button('Place4', key='-NEXTDAY-')],
-                     [sg.Button('Place5', key='-NEXTDAY-'),
-                      sg.Button('Place6', key='-NEXTDAY-')]
+    travel_layout = [[sg.Button('Place1', key='-ND1-'),
+                      sg.Button('Place2', key='-ND2-')],
+                     [sg.Button('Place3', key='-ND3-'),
+                      sg.Button('Place4', key='-ND4-')],
+                     [sg.Button('Place5', key='-ND5-'),
+                      sg.Button('Place6', key='-ND6-')]
                      ]
 
     info_layout = [[sg.MLine(key='-ML-', size=(70, 8))]]
@@ -101,7 +101,7 @@ def main(name, age, pic):
             sg.cprint(
                 'Trade ' + str(ds.data[int(values['-TABLE-'][0])][0]) +
                 ' for $' + str(ds.data[int(values['-TABLE-'][0])][1]) + '?')
-        if event == '-NEXTDAY-':
+        if event == '-ND1-' or '-ND2-' or '-ND3-' or '-ND4-' or '-ND5-' or '-ND6-':
             window['-TABLE-'].update(values=ds.price_random())
             ba.loan_interest()
             window['-LOAN-'].update(ba.get_interest_loan())
