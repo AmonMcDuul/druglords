@@ -71,3 +71,15 @@ def loan_interest():
     result = "{:.2f}".format(new_loan)
     interest_loan = float(result)
     return
+
+
+def pay_loan():
+    x = get_balance()
+    y = get_interest_loan()
+    r = x-y
+    if r > 0:
+        update_balance_shop(y)
+        set_interest_loan(0)
+        return True
+    else:
+        return False
