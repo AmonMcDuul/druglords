@@ -101,7 +101,7 @@ def main(name, age, pic):
             sg.cprint(
                 'Trade ' + str(ds.data[int(values['-TABLE-'][0])][0]) +
                 ' for $' + str(ds.data[int(values['-TABLE-'][0])][1]) + '?')
-        if event == '-ND1-' or '-ND2-' or '-ND3-' or '-ND4-' or '-ND5-' or '-ND6-':
+        if event == '-ND1-' or event == '-ND2-' or event == '-ND3-' or event == '-ND4-' or event == '-ND5-' or event == '-ND6-':
             window['-TABLE-'].update(values=ds.price_random())
             ba.loan_interest()
             window['-LOAN-'].update(ba.get_interest_loan())
