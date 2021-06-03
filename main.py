@@ -14,6 +14,7 @@ progress = 0
 balance = 10000
 loan = 0
 interest_loan = 0
+health = 100
 
 
 def main_screen(name, age, pic):
@@ -35,6 +36,9 @@ def main_screen(name, age, pic):
 
     submenu_layout = [
         [sg.Button('Shop'), sg.Button('Loans'), sg.Button('Poops')]]
+
+    bar_layout = [[sg.Text('Health')], [sg.ProgressBar(health, orientation='h',
+                                                       size=(20, 20), key='-HEALTH-', bar_color=('Red', 'White'))]]
 
     left_layout = [[sg.Text('Drugaloo')],
                    [sg.Table(values=ds.data, headings=ds.headings,
@@ -78,7 +82,7 @@ def main_screen(name, age, pic):
     combined_layout = [[sg.Col(character_layout), sg.Col(
         character_stats), sg.Col(character_items)],
         sg.vtop(
-        [sg.Col(submenu_layout, element_justification='l')]),
+        [sg.Col(submenu_layout, element_justification='l'), sg.Col(bar_layout, element_justification='r')]),
         sg.vtop(
         [sg.Col(info_layout), sg.Col(travel_layout)]),
         sg.vtop(
@@ -91,6 +95,7 @@ def main_screen(name, age, pic):
 
 def main(name, age, pic):
     global progress
+    global health
     window = main_screen(name, age, pic)
     while True:
         event, values = window.read()
@@ -143,8 +148,10 @@ def main(name, age, pic):
             window['-BALANCE-'].update(ba.get_balance(),
                                        text_color=ba.balance_colour())
         if event == 'Poops':
-            sg.cprint('Fartypoops')
 
+            sg.cprint('Fartypoops')
+            health -= 1
+            window['-HEALTH-'].update_bar(health)
     window.close()
 
 
