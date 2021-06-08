@@ -25,6 +25,7 @@ def tic_view():
 
 def tic_selection():
     tic_window = tic_view()
+    arr = np.zeros((3, 3), dtype=str)
     while True:
         event, values = tic_window.read()
         if event == sg.WIN_CLOSED:
@@ -32,11 +33,18 @@ def tic_selection():
         for k in range(1, 10):
             if event == f"-BOX{k}-" and values[f"-BOX{k}-"] == "X":
                 enter(arr, (k-1) // 3, (k+2) % 3, "X")
-                solve_check(arr)
+                # solve_check(arr)
                 if solve_check(arr) != False:
+                    tic_window.close()
                     break
-                tic_window.FindElement(
-                    f"-BOX{ai_move(arr)}-").Update("O")
+                if ai_move(arr):
+                    tic_window.FindElement(
+                        f"-BOX{ai_move(arr)}-").Update("O")
+                else:
+                    win_check("D")
+                    tic_window.close()
+                    break
+
             elif event == f"-BOX{k}-" and values[f"-BOX{k}-"] and values[f"-BOX{k}-"] != "X":
                 sg.Popup('Enter an X, you bad bad boy')
                 tic_window.FindElement(f"-BOX{k}-").Update('')
@@ -44,8 +52,6 @@ def tic_selection():
 
 
 # tic-tac-toe-logic
-arr = np.zeros((3, 3), dtype=str)
-
 
 def enter(arr, x, y, value):
     arr[x, y] = value
@@ -61,17 +67,29 @@ def solve_check(arr):
         arr_diag2 = np.fliplr(arr).diagonal()
 
         if max(x_count_row) == 3 or max(x_count_col) == 3 or np.count_nonzero(arr_diag1 == value) == 3 or np.count_nonzero(arr_diag2 == value) == 3:
-            if value == "X":
-                return sg.Popup('You win badboy Jim!')
-            elif value == "O":
-                return sg.Popup('You lose Bruce!')
+            win_check(value)
+            return True
     return False
 
 
+def win_check(value):
+    arr = np.zeros((3, 3), dtype=str)
+    if value == "X":
+        return sg.Popup('You win badboy Jim!')
+    elif value == "O":
+        return sg.Popup('You lose Bruce!')
+    elif value == "D":
+        return sg.Popup('Its-a-draw!')
+
 # AI
+
+
 def ai_move(arr):
     zero_pos = np.argwhere(arr == '')
-    rand_pos = random.choice(zero_pos)
-    arr[rand_pos[0], rand_pos[1]] = "O"
-    number = (rand_pos[0]*3) + (rand_pos[1]+1)
-    return number
+    try:
+        rand_pos = random.choice(zero_pos)
+        arr[rand_pos[0], rand_pos[1]] = "O"
+        number = (rand_pos[0]*3) + (rand_pos[1]+1)
+        return number
+    except:
+        return False
