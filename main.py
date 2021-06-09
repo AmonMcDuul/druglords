@@ -6,6 +6,8 @@ import shop as sh
 import character as ch
 import character_selection as cs
 import loans as lo
+import events as ev
+import tictactoe as tt
 
 sg.theme('DarkGrey9')
 
@@ -15,6 +17,7 @@ balance = 10000
 loan = 0
 interest_loan = 0
 health = 100
+armor = 0
 
 
 def main_screen(name, age, pic):
@@ -26,19 +29,22 @@ def main_screen(name, age, pic):
                         sg.Text(age, key='-AGE-')],
                        [sg.Text('Inventory: ', size=(7, 1)), sg.Text(
                            ds.owned(), size=(10, 1), key='-INV-')],
-                       [sg.Text('BankAccount!: ', size=(10, 1)), sg.Text(balance, text_color=ba.balance_colour(), key='-BALANCE-')]]
+                       [sg.Text('BankAccount!: ', size=(10, 1)), sg.Text(
+                           balance, text_color=ba.balance_colour(), key='-BALANCE-')],
+                       [sg.Text('Health')], [sg.ProgressBar(health, orientation='h',
+                                                            size=(20, 20), key='-HEALTH-', bar_color=('Red', 'White'))]]
 
     character_items = [[sg.Text('Weapon: ', size=(7, 1)), sg.Text(ch.get_weapon(), key='-WEAP-')],
                        [sg.Text('Armor: ', size=(7, 1)),
                         sg.Text(ch.get_armor(), size=(15, 1), key='-ARM-')],
                        [sg.Text('Dinges: ', size=(7, 1)), sg.Text('Danges')],
-                       [sg.Text('Loan: ', size=(7, 1)), sg.Text(loan, size=(10, 1), text_color='Red', key='-LOAN-')]]
+                       [sg.Text('Loan: ', size=(7, 1)), sg.Text(
+                           loan, size=(10, 1), text_color='Red', key='-LOAN-')],
+                       [sg.Text('Armor')], [sg.ProgressBar(armor, orientation='h',
+                                                           size=(20, 20), key='-ARMBAR-', bar_color=('GREY', 'White'))]]
 
     submenu_layout = [
         [sg.Button('Shop'), sg.Button('Loans'), sg.Button('Poops')]]
-
-    bar_layout = [[sg.Text('Health')], [sg.ProgressBar(health, orientation='h',
-                                                       size=(20, 20), key='-HEALTH-', bar_color=('Red', 'White'))]]
 
     left_layout = [[sg.Text('Drugaloo')],
                    [sg.Table(values=ds.data, headings=ds.headings,
@@ -82,7 +88,7 @@ def main_screen(name, age, pic):
     combined_layout = [[sg.Col(character_layout), sg.Col(
         character_stats), sg.Col(character_items)],
         sg.vtop(
-        [sg.Col(submenu_layout, element_justification='l'), sg.Col(bar_layout, element_justification='r')]),
+        [sg.Col(submenu_layout, element_justification='l')]),
         sg.vtop(
         [sg.Col(info_layout), sg.Col(travel_layout)]),
         sg.vtop(
@@ -102,17 +108,18 @@ def main(name, age, pic):
         if event == sg.WIN_CLOSED:
             break
         # eand event !=  ---- is gedaan zodat tekst alleen geprint wordt als drugs geselecteerd wordt.
-        if values['-TABLE-'] and event != 'Buy' and event != 'Sell':
+        if values['-TABLE-'] and event not in ['Buy', 'Sell']:
             sg.cprint(
                 'Trade ' + str(ds.data[int(values['-TABLE-'][0])][0]) +
                 ' for $' + str(ds.data[int(values['-TABLE-'][0])][1]) + '?')
-        if event == '-ND1-' or event == '-ND2-' or event == '-ND3-' or event == '-ND4-' or event == '-ND5-' or event == '-ND6-':
+        if event in ['-ND1-', '-ND2-', '-ND3-', '-ND4-', '-ND5-', '-ND6-']:
             window['-TABLE-'].update(values=ds.price_random())
             ba.loan_interest()
             window['-LOAN-'].update(ba.get_interest_loan())
             window['-BALANCE-'].update(ba.get_balance(),
                                        text_color=ba.balance_colour())
             progress += 1
+            ev.event_cop()
             if progress > 10:
                 progress = 0
                 sg.popup('Game ends. You have earned: ', ba.get_balance())
@@ -148,10 +155,11 @@ def main(name, age, pic):
             window['-BALANCE-'].update(ba.get_balance(),
                                        text_color=ba.balance_colour())
         if event == 'Poops':
-
             sg.cprint('Fartypoops')
-            health -= 1
-            window['-HEALTH-'].update_bar(health)
+            tt.tic_selection()
+            # health -= 1
+            # window['-HEALTH-'].update_bar(health)
+
     window.close()
 
 
