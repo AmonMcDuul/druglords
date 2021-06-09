@@ -8,6 +8,7 @@ import character_selection as cs
 import loans as lo
 import events as ev
 import tictactoe as tt
+import word_battle as wb
 
 sg.theme('DarkGrey9')
 
@@ -44,7 +45,7 @@ def main_screen(name, age, pic):
                                                            size=(20, 20), key='-ARMBAR-', bar_color=('GREY', 'White'))]]
 
     submenu_layout = [
-        [sg.Button('Shop'), sg.Button('Loans'), sg.Button('Poops')]]
+        [sg.Button('Shop'), sg.Button('Loans'), sg.Button('Tic Tac Cock'), sg.Button('Word battle')]]
 
     left_layout = [[sg.Text('Drugaloo')],
                    [sg.Table(values=ds.data, headings=ds.headings,
@@ -154,11 +155,12 @@ def main(name, age, pic):
             window['-LOAN-'].update(ba.get_interest_loan())
             window['-BALANCE-'].update(ba.get_balance(),
                                        text_color=ba.balance_colour())
-        if event == 'Poops':
+        if event == 'Tic Tac Cock':
             sg.cprint('Fartypoops')
             tt.tic_selection()
-            # health -= 1
-            # window['-HEALTH-'].update_bar(health)
+
+        if event == 'Word battle':
+            wb.word_battle()
 
     window.close()
 
