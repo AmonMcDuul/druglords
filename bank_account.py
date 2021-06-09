@@ -21,14 +21,13 @@ def update_balance_shop(amount):
 
 
 def get_balance():
-    global balance
     global loan
     result = balance + loan
     return result
 
 
 def balance_colour():
-    if balance >= 0:
+    if get_balance() >= 0:
         color = 'green'
     else:
         color = 'red'
@@ -80,6 +79,7 @@ def pay_loan():
     if r > 0:
         update_balance_shop(y)
         set_interest_loan(0)
+        set_loan(0)
         return True
     else:
         return False
