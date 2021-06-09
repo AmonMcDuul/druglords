@@ -31,12 +31,9 @@ def long_operation_thread(seconds, window):
     progress = 0
     print('Thread started - will sleep for {} seconds'.format(seconds))
     for i in range(int(seconds * 10)):
-        time.sleep(.1)  # sleep for a while
+        time.sleep(.1)
         progress += 100 / (seconds * 10)
         window.write_event_value('-PROGRESS-', progress)
-
-    window.write_event_value(
-        '-THREAD-', '*** The thread says.... "I am finished" ***')
 
 
 def word_battle():
@@ -59,7 +56,7 @@ def word_battle():
                        layout, finalize=True)
 
     timeout = thread = None
-    # --------------------- EVENT LOOP ---------------------
+
     while True:
         event, values = window.read(timeout=timeout)
         # print(event, values)
