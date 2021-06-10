@@ -17,18 +17,19 @@ def scoreboard(name, end_score):
 
     layout = [[sg.Text('Score:')],
               [sg.Text(end_score)],
-              [sg.Multiline('', size=(40, 20), key='-ML2-')],
+              [sg.Table(values=db.select_db_word_battle(), headings=['Name', 'Score'],
+                        auto_size_columns=False,
+                        col_widths=[20, 10, 6],
+                        justification='left',
+                        num_rows=max(10, 10),
+                        key='-TABLEINV-',
+                        row_height=20,
+                        enable_events=True)],
               [sg.Button('Exit')],
               ]
 
     window = sg.Window('Word battle scoreboard!',
                        layout, finalize=True)
-
-    sg.cprint_set_output_destination(window, '-ML2-')
-    results = db.select_db_word_battle()
-    sg.cprint('Naam', 'Score')
-    for i in results:
-        sg.cprint(i)
 
     while True:
         event, values = window.read()
