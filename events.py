@@ -46,8 +46,14 @@ def fight():
 
 
 def run():
-    if random.randint(1, 2) == 1:
+    if random.randint(1, 5) == 1:
+        sg.PopupQuickMessage('You have escaped!')
         return True
+    if random.randint(1, 3) == 1:
+        sg.PopupQuickMessage('DA COPPA SHOT YAAAA!!! KABLOWIE!')
+    else:
+        sg.PopupQuickMessage(
+            'Cops shot but missed ya, cops are still after you bebe boy')
     return False
 
 
@@ -65,5 +71,8 @@ def cop_selection():
             break
         if event == 'Fight':
             if fight():
+                break
+        if event == 'Run':
+            if run():
                 break
     cop_window.close()
