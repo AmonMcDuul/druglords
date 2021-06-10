@@ -2,6 +2,7 @@ import threading
 import time
 import PySimpleGUI as sg
 import random
+import database as db
 
 
 def random_word():
@@ -11,14 +12,24 @@ def random_word():
     return list_words[x]
 
 
-def scoreboard(end_score):
+def scoreboard(name, end_score):
+    db.insert_db_word_battle(name, end_score)
+
     layout = [[sg.Text('Score:')],
               [sg.Text(end_score)],
+              [sg.Multiline('', size=(40, 20), key='-ML2-')],
               [sg.Button('Exit')],
               ]
 
     window = sg.Window('Word battle scoreboard!',
                        layout, finalize=True)
+
+    sg.cprint_set_output_destination(window, '-ML2-')
+    results = db.select_db_word_battle()
+    sg.cprint('Naam', 'Score')
+    for i in results:
+        sg.cprint(i)
+
     while True:
         event, values = window.read()
         # print(event, values)
@@ -42,6 +53,7 @@ def word_battle():
     layout = [[sg.Text('Word battle, TO THE DEATH!!!')],
               [sg.Text(
                   'Je hebt 15 seconden de tijd om zoveel mogelijk woorden over te typen!!!')],
+              [sg.Input(key='-NAME-')],
               [sg.Button('Start game')],
               [sg.Text(text=word_to_battle, key='-WTB-'),
                sg.Input(key='-W1-')],
@@ -62,7 +74,7 @@ def word_battle():
         # print(event, values)
         if event in (sg.WIN_CLOSED, 'Exit'):
             break
-        elif event == ('Start game') and not thread:
+        elif event == ('Start game') and len(values['-NAME-']) > 1 and not thread:
             thread = threading.Thread(target=long_operation_thread, args=(
                 float(15), window), daemon=True)
             word_to_battle = random_word()
@@ -84,4 +96,4 @@ def word_battle():
             thread, message, progress, timeout = None, '', 0, None
             window['-PROG-'].update_bar(0, 0)
     window.close()
-    scoreboard(score)
+    scoreboard(values['-NAME-'], score)

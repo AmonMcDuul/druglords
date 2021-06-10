@@ -9,6 +9,7 @@ import loans as lo
 import events as ev
 import tictactoe as tt
 import word_battle as wb
+import database as db
 
 sg.theme('DarkGrey9')
 
@@ -101,6 +102,7 @@ def main_screen(name, age, pic):
 
 
 def main(name, age, pic):
+
     global progress
     global health
     window = main_screen(name, age, pic)
@@ -167,4 +169,5 @@ def main(name, age, pic):
 
 if __name__ == '__main__':
     # main()
+    db.create_db()
     cs.char_selection()
