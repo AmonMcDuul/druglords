@@ -34,6 +34,7 @@ def select_db_word_battle():
         lijst = []
         lijst.append(row)
         for i in cursor:
+            if len(lijst) == 10:
+                return lijst
             lijst.append(i)
-        print(lijst)
         return lijst
