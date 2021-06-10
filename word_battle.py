@@ -56,7 +56,7 @@ def word_battle():
                   'Je hebt 15 seconden de tijd om zoveel mogelijk woorden over te typen!!!')],
               [sg.Text('Name: '), sg.Input('Voer naam in', key='-NAME-')],
               [sg.Button('Start game')],
-              [sg.Text(text=word_to_battle, key='-WTB-'),
+              [sg.Text(text=word_to_battle, font='Default 18', key='-WTB-'),
                sg.Input(key='-W1-')],
               [sg.Text('Score:')],
               [sg.Text(score, key='-SCO-')],
@@ -79,10 +79,12 @@ def word_battle():
             thread = threading.Thread(target=long_operation_thread, args=(
                 float(15), window), daemon=True)
             word_to_battle = random_word()
+            word_to_battle_change = word_to_battle
             window['-WTB-'].update(word_to_battle)
             thread.start()
         elif word_to_battle == values['-W1-']:
             word_to_battle = random_word()
+            word_to_battle_change = word_to_battle
             window['-WTB-'].update(word_to_battle)
             window['-W1-'].update('')
             score += 1
