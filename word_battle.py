@@ -53,7 +53,7 @@ def word_battle():
     layout = [[sg.Text('Word battle, TO THE DEATH!!!')],
               [sg.Text(
                   'Je hebt 15 seconden de tijd om zoveel mogelijk woorden over te typen!!!')],
-              [sg.Input(key='-NAME-')],
+              [sg.Text('Name: '), sg.Input(key='-NAME-')],
               [sg.Button('Start game')],
               [sg.Text(text=word_to_battle, key='-WTB-'),
                sg.Input(key='-W1-')],
