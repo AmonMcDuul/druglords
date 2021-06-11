@@ -24,7 +24,6 @@ progress = 0
 balance = 10000
 loan = 0
 interest_loan = 0
-health = 100
 armor = 0
 
 
@@ -39,7 +38,7 @@ def main_screen(name, age, pic):
                            ds.owned(), size=(10, 1), key='-INV-')],
                        [sg.Text('BankAccount!: ', size=(10, 1)), sg.Text(
                            balance, text_color=ba.balance_colour(), key='-BALANCE-')],
-                       [sg.Text('Health')], [sg.ProgressBar(max_value=health, orientation='h',
+                       [sg.Text('Health')], [sg.ProgressBar(max_value=ch.get_health(), orientation='h',
                                                             size=(20, 20), key='-HEALTH-', bar_color=('Red', 'White'))]]
 
     character_items = [[sg.Text('Weapon: ', size=(7, 1)), sg.Text(ch.get_weapon(), key='-WEAP-')],
@@ -102,24 +101,24 @@ def main_screen(name, age, pic):
         sg.vtop(
         [sg.Col(left_layout), sg.Col(right_layout)])]
 
-    window = sg.Window('Druglordzz', combined_layout)
+    window = sg.Window('Druglordzz', combined_layout).Finalize()
     sg.cprint_set_output_destination(window, '-ML-')
     return window
 
 
 def main(name, age, pic):
     global progress
-    global health
     window = main_screen(name, age, pic)
     lg.loading_game()
+    window.find_element('-HEALTH-').update(100)
     while True:
         event, values = window.read()
 
         if event == sg.WIN_CLOSED:
             break
         if event == 'HP':
-            health -= 1
-            window['-HEALTH-'].update(health)
+            ch.set_health(1)
+            window['-HEALTH-'].update(ch.get_health())
             # eand event !=  ---- is gedaan zodat tekst alleen geprint wordt als drugs geselecteerd wordt.
         if values['-TABLE-'] and event not in ['Buy', 'Sell']:
             sg.cprint(
@@ -133,6 +132,7 @@ def main(name, age, pic):
                                        text_color=ba.balance_colour())
             progress += 1
             ev.event_cop()
+            window['-HEALTH-'].update(ch.get_health())
             if progress > 10:
                 progress = 0
                 sg.popup('Game ends. You have earned: ', ba.get_balance())
