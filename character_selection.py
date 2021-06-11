@@ -22,11 +22,12 @@ avatar = 'img//avatar_orig.png'
 
 def character_view():
     character_layout = [[sg.Text('Make ya gangsta yo')],
-                        [sg.Text('Name: '), sg.Input(key='-NAME-')],
+                        [sg.Text('Name: '), sg.Input(
+                            'Poopiebuts', key='-NAME-')],
                         [sg.Text('Age: '), sg.Input(key='-AGE-')],
                         [sg.Button('<'), sg.Image(
                             avatar, key='-IMG-'), sg.Button('>')],
-                        [sg.Text('choose playtime: '), sg.Combo(playtime)],
+                        [sg.Text('choose playtime: '), sg.Combo(playtime,)],
                         [sg.Button('Go deal some drugs yo', key='-GO-')]
                         ]
     character_window = sg.Window('Shoppa', character_layout)
