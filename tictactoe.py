@@ -36,8 +36,10 @@ def tic_selection():
             break
         for k in range(1, 10):
             if event == f"-BOX{k}-":
+                entry = enter(arr, (k-1) // 3, (k+2) % 3, "X")
+                if entry == False:
+                    break
                 tic_window[f'-BOX{k}-'].update(button_color=player_x)
-                enter(arr, (k-1) // 3, (k+2) % 3, "X")
                 move = ai_move(arr)
                 if move != False:
                     tic_window.FindElement(
@@ -57,8 +59,12 @@ def tic_selection():
 
 # tic-tac-toe-logic
 def enter(arr, x, y, value):
-    arr[x, y] = value
-    return arr
+    if arr[x, y] != 'X' and arr[x, y] != 'O':
+        arr[x, y] = value
+        return arr
+    else:
+        sg.Popup('Bad move!')
+        return False
 
 
 def solve_check(arr):

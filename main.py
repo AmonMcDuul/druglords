@@ -114,6 +114,7 @@ def main(name, age, pic):
     lg.loading_game()
     while True:
         event, values = window.read()
+
         if event == sg.WIN_CLOSED:
             break
         if event == 'HP':
