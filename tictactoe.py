@@ -38,16 +38,17 @@ def tic_selection():
             if event == f"-BOX{k}-":
                 tic_window[f'-BOX{k}-'].update(button_color=player_x)
                 enter(arr, (k-1) // 3, (k+2) % 3, "X")
-                # solve_check(arr)
-                if solve_check(arr) != False:
-                    tic_window.close()
-                    break
-                if ai_move(arr):
+                move = ai_move(arr)
+                if move != False:
                     tic_window.FindElement(
-                        f"-BOX{ai_move(arr)}-").Update(button_color=player_o)
-                    # tic_window[f'-BOX{ai_move(arr)}-'].update(
-                    #     button_color=player_o)
+                        f"-BOX{move}-").Update(button_color=player_o)
+                    if solve_check(arr):
+                        tic_window.close()
+                        break
                 else:
+                    if solve_check(arr):
+                        tic_window.close()
+                        break
                     win_check("D")
                     tic_window.close()
                     break
@@ -55,7 +56,6 @@ def tic_selection():
 
 
 # tic-tac-toe-logic
-
 def enter(arr, x, y, value):
     arr[x, y] = value
     return arr
@@ -93,8 +93,6 @@ def ai_move(arr):
         rand_pos = random.choice(zero_pos)
         arr[rand_pos[0], rand_pos[1]] = "O"
         number = (rand_pos[0]*3) + (rand_pos[1]+1)
-        # tic_window[f'-BOX{number}-'].update(
-        #     button_color=player_o)
         return number
     except:
         return False

@@ -11,6 +11,11 @@ import tictactoe as tt
 import word_battle as wb
 import database as db
 import loading_game as lg
+# from pygame import mixer
+
+# mixer.init()
+# mixer.music.load('song.mp3')
+# mixer.music.play()
 
 sg.theme('DarkGrey9')
 
