@@ -6,19 +6,6 @@ count = 1
 playtime = ['30', '60', '90']
 avatar = 'img//avatar_orig.png'
 
-# def picture_picker(n):
-#     global count
-#     if n == 2:
-#         count += 1
-#         if count == 6:
-#             count = 1
-#     if n == 1:
-#         count -= 1
-#         if count == 0:
-#             count = 5
-#     picture = ('img//' + str(count)+'poppetje.png')
-#     return picture
-
 
 def character_view():
     character_layout = [[sg.Text('Make ya gangsta yo')],
@@ -27,6 +14,7 @@ def character_view():
                         [sg.Button('<'), sg.Image(
                             avatar, key='-IMG-'), sg.Button('>')],
                         [sg.Text('choose playtime: '), sg.Combo(playtime)],
+                        [sg.Text('Want a mustache?'), sg.Button('|||||')],
                         [sg.Button('Go deal some drugs yo', key='-GO-')]
                         ]
     character_window = sg.Window('Shoppa', character_layout)
@@ -46,4 +34,8 @@ def char_selection():
             character_window['-IMG-'].update(sc.rand_tone())
         if event == '<':
             character_window['-IMG-'].update(sc.rand_tone())
+        if event == '<':
+            character_window['-IMG-'].update(sc.rand_tone())
+        if event == '||||':
+            character_window['-IMG-'].update(sc.add_mustache())
     character_window.close()

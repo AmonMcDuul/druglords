@@ -135,6 +135,7 @@ def main(name, age, pic):
             window['-HEALTH-'].update(ch.get_health())
             if progress > 10:
                 progress = 0
+
                 sg.popup('Game ends. You have earned: ', ba.get_balance())
             window['-PROG-'].update(progress)
         if event == 'Buy' and len(values['-TABLE-']) == 1:
@@ -168,8 +169,9 @@ def main(name, age, pic):
             window['-BALANCE-'].update(ba.get_balance(),
                                        text_color=ba.balance_colour())
         if event == 'Tic Tac Cock':
-            sg.cprint('Fartypoops')
             tt.tic_selection()
+            window['-BALANCE-'].update(ba.get_balance(),
+                                       text_color=ba.balance_colour())
         if event == 'Word battle':
             wb.word_battle()
     window.close()

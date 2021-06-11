@@ -1,6 +1,7 @@
 import PySimpleGUI as sg
 import numpy as np
 import random
+import bank_account as ba
 
 player_x = 'Red'
 player_o = 'Blue'
@@ -84,10 +85,13 @@ def solve_check(arr):
 def win_check(value):
     arr = np.zeros((3, 3), dtype=str)
     if value == "X":
+        win_toe()
         return sg.Popup('You win badboy Jim!')
     elif value == "O":
+        lose_toe()
         return sg.Popup('You lose Bruce!')
     elif value == "D":
+        draw_toe()
         return sg.Popup('Its-a-draw!')
 
 # AI
@@ -102,3 +106,15 @@ def ai_move(arr):
         return number
     except:
         return False
+
+
+def lose_toe():
+    ba.balance *= 0.9
+
+
+def win_toe():
+    ba.balance *= 1.1
+
+
+def draw_toe():
+    ba.balance *= 0.98
