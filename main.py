@@ -10,6 +10,7 @@ import events as ev
 import tictactoe as tt
 import word_battle as wb
 import database as db
+import loading_game as lg
 # from pygame import mixer
 
 # mixer.init()
@@ -38,7 +39,7 @@ def main_screen(name, age, pic):
                            ds.owned(), size=(10, 1), key='-INV-')],
                        [sg.Text('BankAccount!: ', size=(10, 1)), sg.Text(
                            balance, text_color=ba.balance_colour(), key='-BALANCE-')],
-                       [sg.Text('Health')], [sg.ProgressBar(health, orientation='h',
+                       [sg.Text('Health')], [sg.ProgressBar(max_value=health, orientation='h',
                                                             size=(20, 20), key='-HEALTH-', bar_color=('Red', 'White'))]]
 
     character_items = [[sg.Text('Weapon: ', size=(7, 1)), sg.Text(ch.get_weapon(), key='-WEAP-')],
@@ -51,7 +52,7 @@ def main_screen(name, age, pic):
                                                            size=(20, 20), key='-ARMBAR-', bar_color=('GREY', 'White'))]]
 
     submenu_layout = [
-        [sg.Button('Shop'), sg.Button('Loans'), sg.Button('Tic Tac Cock'), sg.Button('Word battle')]]
+        [sg.Button('Shop'), sg.Button('Loans'), sg.Button('Tic Tac Cock'), sg.Button('Word battle'), sg.Button('HP')]]
 
     left_layout = [[sg.Text('Drugaloo')],
                    [sg.Table(values=ds.data, headings=ds.headings,
@@ -107,15 +108,18 @@ def main_screen(name, age, pic):
 
 
 def main(name, age, pic):
-
     global progress
     global health
     window = main_screen(name, age, pic)
+    lg.loading_game()
     while True:
         event, values = window.read()
         if event == sg.WIN_CLOSED:
             break
-        # eand event !=  ---- is gedaan zodat tekst alleen geprint wordt als drugs geselecteerd wordt.
+        if event == 'HP':
+            health -= 1
+            window['-HEALTH-'].update(health)
+            # eand event !=  ---- is gedaan zodat tekst alleen geprint wordt als drugs geselecteerd wordt.
         if values['-TABLE-'] and event not in ['Buy', 'Sell']:
             sg.cprint(
                 'Trade ' + str(ds.data[int(values['-TABLE-'][0])][0]) +
@@ -165,10 +169,8 @@ def main(name, age, pic):
         if event == 'Tic Tac Cock':
             sg.cprint('Fartypoops')
             tt.tic_selection()
-
         if event == 'Word battle':
             wb.word_battle()
-
     window.close()
 
 
