@@ -1,13 +1,4 @@
-import random
+import PySimpleGUI as sg
 
-
-def test():
-    if random.randint(1, 5) in (1, 2):
-        print('True')
-
-
-test()
-test()
-test()
-test()
-test()
+for i in range(1000):
+    sg.OneLineProgressMeter('One Line Meter Example', i + 1, 1000, 'key')
