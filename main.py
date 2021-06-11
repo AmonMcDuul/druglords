@@ -12,6 +12,7 @@ import word_battle as wb
 import database as db
 import loading_game as lg
 import end_game as eg
+from pong_game.pong import run_game
 # from pygame import mixer
 
 # mixer.init()
@@ -50,7 +51,7 @@ def main_screen(name, age, pic, days):
                                                            size=(20, 20), key='-ARMBAR-', bar_color=('Blue', 'White'))]]
 
     submenu_layout = [
-        [sg.Button('Shop'), sg.Button('Loans'), sg.Button('Tic Tac Cock'), sg.Button('Word battle'), sg.Button('HP')]]
+        [sg.Button('Shop'), sg.Button('Loans'), sg.Button('Tic Tac Cock'), sg.Button('Word battle'), sg.Button('HP'), sg.Button('Pong!')]]
 
     left_layout = [[sg.Text('Drugaloo')],
                    [sg.Table(values=ds.data, headings=ds.headings,
@@ -176,6 +177,11 @@ def main(name, age, pic, days):
                                        text_color=ba.balance_colour())
         if event == 'Word battle':
             wb.word_battle()
+        if event == 'Pong!':
+            try:
+                run_game()
+            except:
+                pass
     window.close()
 
 
