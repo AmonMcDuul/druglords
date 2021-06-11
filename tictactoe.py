@@ -37,7 +37,7 @@ def tic_selection():
         for k in range(1, 10):
             if event == f"-BOX{k}-":
                 entry = enter(arr, (k-1) // 3, (k+2) % 3, "X")
-                if entry == 'False':
+                if entry == False:
                     break
                 tic_window[f'-BOX{k}-'].update(button_color=player_x)
                 move = ai_move(arr)

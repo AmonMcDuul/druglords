@@ -113,6 +113,7 @@ def main(name, age, pic):
     window = main_screen(name, age, pic)
     while True:
         event, values = window.read()
+
         if event == sg.WIN_CLOSED:
             break
         # eand event !=  ---- is gedaan zodat tekst alleen geprint wordt als drugs geselecteerd wordt.
