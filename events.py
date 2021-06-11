@@ -19,6 +19,7 @@ def cop_view():
 
 
 def fight():
+    global health
     weapon = ch.get_weapon()
     if weapon == 'Vuistah':
         if random.randint(1, 5) == 1:
@@ -39,6 +40,7 @@ def fight():
     armor = ch.get_armor()
     if random.randint(1, 3) == 1:
         sg.PopupQuickMessage('DA COPPA SHOT YAAAA!!! KABLOWIE!')
+        ch.set_health(25)
     else:
         sg.PopupQuickMessage(
             'Cops shot but missed ya, cops are still after you bebe boy')

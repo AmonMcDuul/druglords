@@ -2,6 +2,18 @@ import PySimpleGUI as sg
 
 weapon = 'Vuistah'
 armor = 'Blote buikjah'
+health = 100
+
+
+def set_health(n):
+    global health
+    health -= n
+    return health
+
+
+def get_health():
+    global health
+    return health
 
 
 def get_weapon():
