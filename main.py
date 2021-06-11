@@ -22,8 +22,8 @@ from pong_game.pong import run_game
 sg.theme('DarkGrey9')
 
 progress = 0
-balance = 10000
-loan = 0
+balance = 100
+loan = 5000
 interest_loan = 0
 
 
@@ -37,7 +37,7 @@ def main_screen(name, age, pic, days):
                        [sg.Text('Inventory: ', size=(7, 1)), sg.Text(
                            ds.owned(), size=(10, 1), key='-INV-')],
                        [sg.Text('BankAccount!: ', size=(10, 1)), sg.Text(
-                           balance, text_color=ba.balance_colour(), key='-BALANCE-')],
+                           ba.get_balance(), text_color=ba.balance_colour(), key='-BALANCE-')],
                        [sg.Text('Health')], [sg.ProgressBar(max_value=ch.get_health(), orientation='h',
                                                             size=(20, 20), key='-HEALTH-', bar_color=('Red', 'White'))]]
 

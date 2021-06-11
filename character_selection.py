@@ -10,7 +10,7 @@ def character_view():
     character_layout = [[sg.Text('Make ya gangsta yo')],
                         [sg.Text('Name: '), sg.Input(
                             'Poopiebuts', key='-NAME-')],
-                        [sg.Text('Age: '), sg.Input(key='-AGE-')],
+                        [sg.Text('Age: '), sg.Input('18', key='-AGE-')],
                         [sg.Button('<'), sg.Image(
                             avatar, key='-IMG-'), sg.Button('>')],
                         [sg.Text('Want a mustache?'), sg.Button('|||||')],

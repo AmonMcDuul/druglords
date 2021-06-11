@@ -37,10 +37,13 @@ def fight():
         if random.randint(1, 5) in (1, 2, 3, 4):
             sg.PopupQuickMessage('You have escaped!')
             return True
-    armor = ch.get_armor()
+    armor = ch.get_armornr()
     if random.randint(1, 3) == 1:
         sg.PopupQuickMessage('DA COPPA SHOT YAAAA!!! KABLOWIE!')
-        ch.set_health(25)
+        if armor > 0:
+            ch.set_armornr(25)
+        else:
+            ch.set_health(25)
     else:
         sg.PopupQuickMessage(
             'Cops shot but missed ya, cops are still after you bebe boy')
@@ -53,6 +56,10 @@ def run():
         return True
     if random.randint(1, 3) == 1:
         sg.PopupQuickMessage('DA COPPA SHOT YAAAA!!! KABLOWIE!')
+        if armor > 0:
+            ch.set_armornr(25)
+        else:
+            ch.set_health(25)
     else:
         sg.PopupQuickMessage(
             'Cops shot but missed ya, cops are still after you bebe boy')
