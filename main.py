@@ -20,14 +20,13 @@ import end_game as eg
 
 sg.theme('DarkGrey9')
 
-BAR_MAX = 10
 progress = 0
 balance = 10000
 loan = 0
 interest_loan = 0
 
 
-def main_screen(name, age, pic):
+def main_screen(name, age, pic, days):
 
     character_layout = [[sg.Image(pic, key='-PROFILE_PIC-')]]
 
@@ -79,7 +78,7 @@ def main_screen(name, age, pic):
                                   max(6, len(ds.data)) <= 6),
                               enable_events=True)],
                     [sg.Text('Progress')],
-                    [sg.ProgressBar(BAR_MAX, orientation='h',
+                    [sg.ProgressBar(days, orientation='h',
                                     size=(20, 20), key='-PROG-')]]
 
     travel_layout = [[sg.Button('Place1', key='-ND1-'),
@@ -106,9 +105,9 @@ def main_screen(name, age, pic):
     return window
 
 
-def main(name, age, pic):
+def main(name, age, pic, days):
     global progress
-    window = main_screen(name, age, pic)
+    window = main_screen(name, age, pic, days)
     lg.loading_game()
     window.find_element('-HEALTH-').update(100)
     while True:
@@ -135,10 +134,10 @@ def main(name, age, pic):
             window['-HEALTH-'].update(ch.get_health())
             if progress > 10:
                 progress = 0
-
-                sg.popup('Game ends. You have earned: ', ba.get_balance())
+                result = ba.get_balance() - ba.get_interest_loan()
+                sg.popup('Game ends. You have earned: ', result)
                 window.close()
-                eg.endgame(name, ba.get_balance())
+                eg.endgame(name, result)
             window['-PROG-'].update(progress)
         if event == 'Buy' and len(values['-TABLE-']) == 1:
             tr.buy_view(ds.data[int(values['-TABLE-'][0])][0])
