@@ -22,14 +22,13 @@ from invader_game.alien_invasion import run_alien
 
 sg.theme('DarkGrey9')
 
-BAR_MAX = 10
 progress = 0
-balance = 10000
-loan = 0
+balance = 100
+loan = 5000
 interest_loan = 0
 
 
-def main_screen(name, age, pic):
+def main_screen(name, age, pic, days):
 
     character_layout = [[sg.Image(pic, key='-PROFILE_PIC-')]]
 
@@ -39,7 +38,7 @@ def main_screen(name, age, pic):
                        [sg.Text('Inventory: ', size=(7, 1)), sg.Text(
                            ds.owned(), size=(10, 1), key='-INV-')],
                        [sg.Text('BankAccount!: ', size=(10, 1)), sg.Text(
-                           balance, text_color=ba.balance_colour(), key='-BALANCE-')],
+                           ba.get_balance(), text_color=ba.balance_colour(), key='-BALANCE-')],
                        [sg.Text('Health')], [sg.ProgressBar(max_value=ch.get_health(), orientation='h',
                                                             size=(20, 20), key='-HEALTH-', bar_color=('Red', 'White'))]]
 
@@ -81,7 +80,7 @@ def main_screen(name, age, pic):
                                   max(6, len(ds.data)) <= 6),
                               enable_events=True)],
                     [sg.Text('Progress')],
-                    [sg.ProgressBar(BAR_MAX, orientation='h',
+                    [sg.ProgressBar(days, orientation='h',
                                     size=(20, 20), key='-PROG-')]]
 
     travel_layout = [[sg.Button('Place1', key='-ND1-'),
@@ -108,9 +107,9 @@ def main_screen(name, age, pic):
     return window
 
 
-def main(name, age, pic):
+def main(name, age, pic, days):
     global progress
-    window = main_screen(name, age, pic)
+    window = main_screen(name, age, pic, days)
     lg.loading_game()
     window.find_element('-HEALTH-').update(100)
     while True:
@@ -135,12 +134,13 @@ def main(name, age, pic):
             progress += 1
             ev.event_cop()
             window['-HEALTH-'].update(ch.get_health())
+            window['-ARMBAR-'].update(ch.get_armornr())
             if progress > 10:
                 progress = 0
-
-                sg.popup('Game ends. You have earned: ', ba.get_balance())
+                result = ba.get_balance() - ba.get_interest_loan()
+                sg.popup('Game ends. You have earned: ', result)
                 window.close()
-                eg.endgame(name, ba.get_balance())
+                eg.endgame(name, result)
             window['-PROG-'].update(progress)
         if event == 'Buy' and len(values['-TABLE-']) == 1:
             tr.buy_view(ds.data[int(values['-TABLE-'][0])][0])
