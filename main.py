@@ -134,6 +134,7 @@ def main(name, age, pic, days):
             progress += 1
             ev.event_cop()
             window['-HEALTH-'].update(ch.get_health())
+            window['-ARMBAR-'].update(ch.get_armornr())
             if progress > 10:
                 progress = 0
                 result = ba.get_balance() - ba.get_interest_loan()

@@ -35,7 +35,7 @@ def balance_colour():
 
 
 def shop_price_colour(amount):
-    if balance - amount >= 0:
+    if get_balance() - amount >= 0:
         color = 'green'
     else:
         color = 'red'

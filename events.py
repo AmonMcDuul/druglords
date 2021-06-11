@@ -41,7 +41,7 @@ def fight():
     if random.randint(1, 3) == 1:
         sg.PopupQuickMessage('DA COPPA SHOT YAAAA!!! KABLOWIE!')
         if armor > 0:
-            ch.set_armornr(25)
+            ch.set_armornr(-25)
         else:
             ch.set_health(25)
     else:
@@ -57,7 +57,7 @@ def run():
     if random.randint(1, 3) == 1:
         sg.PopupQuickMessage('DA COPPA SHOT YAAAA!!! KABLOWIE!')
         if armor > 0:
-            ch.set_armornr(25)
+            ch.set_armornr(-25)
         else:
             ch.set_health(25)
     else:
