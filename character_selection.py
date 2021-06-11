@@ -36,6 +36,6 @@ def char_selection():
             character_window['-IMG-'].update(sc.rand_tone())
         if event == '<':
             character_window['-IMG-'].update(sc.rand_tone())
-        if event == '||||':
+        if event == '|||||':
             character_window['-IMG-'].update(sc.add_mustache())
     character_window.close()
