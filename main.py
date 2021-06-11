@@ -25,7 +25,7 @@ sg.theme('DarkGrey9')
 progress = 0
 balance = 100
 loan = 5000
-interest_loan = 0
+interest_loan = 5000
 
 
 def main_screen(name, age, pic, days):
