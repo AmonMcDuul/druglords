@@ -56,6 +56,7 @@ def run():
         return True
     if random.randint(1, 3) == 1:
         sg.PopupQuickMessage('DA COPPA SHOT YAAAA!!! KABLOWIE!')
+        armor = ch.get_armornr()
         if armor > 0:
             ch.set_armornr(-25)
         else:
