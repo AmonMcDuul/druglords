@@ -11,6 +11,7 @@ import tictactoe as tt
 import word_battle as wb
 import database as db
 import loading_game as lg
+import end_game as eg
 # from pygame import mixer
 
 # mixer.init()
@@ -24,7 +25,6 @@ progress = 0
 balance = 10000
 loan = 0
 interest_loan = 0
-armor = 0
 
 
 def main_screen(name, age, pic):
@@ -47,8 +47,8 @@ def main_screen(name, age, pic):
                        [sg.Text('Dinges: ', size=(7, 1)), sg.Text('Danges')],
                        [sg.Text('Loan: ', size=(7, 1)), sg.Text(
                            loan, size=(10, 1), text_color='Red', key='-LOAN-')],
-                       [sg.Text('Armor')], [sg.ProgressBar(armor, orientation='h',
-                                                           size=(20, 20), key='-ARMBAR-', bar_color=('GREY', 'White'))]]
+                       [sg.Text('Armor')], [sg.ProgressBar(100, orientation='h',
+                                                           size=(20, 20), key='-ARMBAR-', bar_color=('Blue', 'White'))]]
 
     submenu_layout = [
         [sg.Button('Shop'), sg.Button('Loans'), sg.Button('Tic Tac Cock'), sg.Button('Word battle'), sg.Button('HP')]]
@@ -136,6 +136,8 @@ def main(name, age, pic):
             if progress > 10:
                 progress = 0
                 sg.popup('Game ends. You have earned: ', ba.get_balance())
+                window.close()
+                eg.endgame(name, ba.get_balance())
             window['-PROG-'].update(progress)
         if event == 'Buy' and len(values['-TABLE-']) == 1:
             tr.buy_view(ds.data[int(values['-TABLE-'][0])][0])
@@ -162,6 +164,7 @@ def main(name, age, pic):
             window['-ARM-'].update(ch.get_armor())
             window['-BALANCE-'].update(ba.get_balance(),
                                        text_color=ba.balance_colour())
+            window['-ARMBAR-'].update(ch.get_armornr())
         if event == 'Loans':
             lo.loan_selection()
             window['-LOAN-'].update(ba.get_interest_loan())
