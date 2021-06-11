@@ -118,6 +118,7 @@ def armor_view():
             if can_buy(1000):
                 ch.armor_bought('Vest')
                 ba.update_balance_shop(1000)
+                ch.set_armornr(25)
             else:
                 sg.popup('You aint got no money fool!')
             break
@@ -125,6 +126,7 @@ def armor_view():
             if can_buy(5000):
                 ch.armor_bought('Kevlar')
                 ba.update_balance_shop(5000)
+                ch.set_armornr(60)
             else:
                 sg.popup('You aint got no money fool!')
             break
@@ -132,6 +134,7 @@ def armor_view():
             if can_buy(10000):
                 ch.armor_bought('Knight armor')
                 ba.update_balance_shop(10000)
+                ch.set_armornr(100)
             else:
                 sg.popup('You aint got no money fool!')
             break
